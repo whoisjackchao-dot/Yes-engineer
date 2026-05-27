@@ -25,6 +25,25 @@ powershell -ExecutionPolicy Bypass -File setup.ps1
 powershell -File cdbb-start.ps1
 ```
 
+## 开机自动启动（推荐）
+
+一次性配置，之后每次登录 Windows 和启动 Claude Code 都会自动拉起守护进程：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File cdbb-autostart.ps1
+```
+
+**原理：**
+- **Windows Startup 文件夹**：登录时通过 VBS 脚本静默启动（无需管理员权限）
+- **Claude Code SessionStart hook**：打开 Claude Code 时自动检查，daemon 不在就拉起（兜底）
+- **存活检查**：启动脚本先检测 TCP 127.0.0.1:19876 是否已有监听，避免重复启动
+
+移除自动启动：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File cdbb-autostart.ps1 -Unregister
+```
+
 ## 组件
 
 | 文件 | 说明 |
@@ -35,6 +54,8 @@ powershell -File cdbb-start.ps1
 | `cdbb/cli.py` | 命令行入口 (daemon/scan/status/install/uninstall) |
 | `setup.ps1` | 一键安装脚本 |
 | `cdbb-start.ps1` | 一键启动守护进程 |
+| `cdbb-autostart.ps1` | 开机自动启动注册脚本 |
+| `cdbb-daemon-launcher.ps1` | 守护进程启动器（含存活检查） |
 
 ## 环境变量
 

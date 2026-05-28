@@ -5,7 +5,7 @@ $env:CDBB_DEVICE_ID = 'BluetoothLE#BluetoothLE14:4f:8a:7a:bb:b4-70:04:1d:d6:21:d
 $env:CDBB_ADDR       = '70:04:1D:D6:21:D1'
 
 Write-Host "cdbb daemon starting..." -ForegroundColor Cyan
-$proc = Start-Process python -ArgumentList '-c', 'import cdbb.cli; cdbb.cli.main()', 'daemon', '-v' -NoNewWindow -PassThru
+$proc = Start-Process python -ArgumentList '-c', 'import cdbb.cli; cdbb.cli.main()', 'daemon', '-v' -WindowStyle Hidden -PassThru
 Write-Host "PID: $($proc.Id)"
 
 Start-Sleep -Seconds 12

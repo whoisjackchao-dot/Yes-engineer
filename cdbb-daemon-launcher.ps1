@@ -28,7 +28,7 @@ catch {
 }
 
 try {
-    $proc = Start-Process python -ArgumentList "-c", "import cdbb.cli; cdbb.cli.main()", "daemon", "-v" -NoNewWindow -PassThru
+    $proc = Start-Process python -ArgumentList "-c", "import cdbb.cli; cdbb.cli.main()", "daemon", "-v" -WindowStyle Hidden -PassThru
 
     Start-Sleep -Seconds 15
 
